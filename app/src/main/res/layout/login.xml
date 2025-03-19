@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:orientation="vertical"
+    android:padding="24dp">
+
+    <!-- Title Section -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:gravity="center"
+        android:text="SkillSync"
+        android:textColor="@color/primary"
+        android:textSize="32sp"
+        android:textStyle="bold" />
+
+    <!-- Tagline Section -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:text="Sync Your Skills,"
+        android:textColor="@color/secondary"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:gravity="center"
+        android:text="Unlock Opportunities."
+        android:textColor="@color/secondary"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <!-- Login Form -->
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/RoundedTextInputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="8dp"
+        android:background="@color/background"
+        android:hint="Email"
+        android:textColorHint="@color/secondary"
+        app:boxStrokeColor="@color/secondary">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:inputType="textEmailAddress"
+            android:textColor="@color/secondary" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/RoundedTextInputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="8dp"
+        android:background="@color/background"
+        android:hint="Password"
+        android:textColorHint="@color/secondary"
+        app:boxStrokeColor="@color/primary">
+
+        <!-- Change hint color -->
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:inputType="textPassword" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Login Button -->
+    <Button
+        android:id="@+id/loginButton"
+        style="@style/RoundedTextInputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="@color/primary"
+        android:text="Log In"
+        android:textColor="@color/text_primary"
+        android:textStyle="bold" /> <!-- Change button text color -->
+
+    <!-- Sign Up Link -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:text="Don’t Have an Account?"
+        android:textColor="@color/secondary"
+        android:textSize="14sp"
+        android:textStyle="bold" />
+
+    <!--  Sign Up clickable text  -->
+    <TextView
+        android:id="@+id/signup_link"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:text="Sign Up"
+        android:textColor="@color/primary"
+        android:textSize="14sp"
+        android:textStyle="bold" />
+</LinearLayout>

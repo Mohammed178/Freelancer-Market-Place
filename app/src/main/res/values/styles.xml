@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="RoundedTextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <!-- Rounded corners -->
+        <item name="shapeAppearanceOverlay">@style/RoundedShapeAppearance</item>
+        <!-- Border color -->
+        <item name="boxStrokeColor">@color/secondary</item>
+    </style>
+
+    <style name="RoundedShapeAppearance">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">12dp</item> <!-- Adjust radius here -->
+        <item name="strokeWidth">10dp</item> <!-- Border thickness -->
+    </style>
+
+</resources>

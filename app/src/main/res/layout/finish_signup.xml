@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:padding="24dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="50dp"
+        android:orientation="vertical">
+
+        <!-- Title -->
+
+        <!-- First Name and Last Name -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:gravity="center"
+            android:text="Finish Signing Up"
+            android:textColor="@color/primary"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="16dp">
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/RoundedTextInputLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginEnd="8dp"
+                android:hint="First Name"
+                android:textColorHint="@color/secondary"
+                app:boxStrokeColor="@color/secondary"
+                app:hintTextColor="@color/secondary">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/secondary"
+                    android:textStyle="bold"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/RoundedTextInputLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="8dp"
+                android:hint="Last Name"
+                android:textColorHint="@color/secondary"
+                app:boxStrokeColor="@color/secondary"
+                app:hintTextColor="@color/secondary">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/secondary"
+                    android:textStyle="bold"/>
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+
+        <!-- Phone Number -->
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/RoundedTextInputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:hint="Phone Number"
+            android:textColorHint="@color/secondary"
+            app:boxStrokeColor="@color/secondary"
+            app:hintTextColor="@color/secondary">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="phone"
+                android:textColor="@color/secondary"
+                android:textStyle="bold"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Freelancer or Customer Selection -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Freelancer or Customer"
+            android:textSize="16sp"
+            android:textColor="@color/primary"
+            android:layout_marginBottom="10dp"
+            android:textStyle="bold"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="16dp">
+
+            <!-- Freelancer Option -->
+            <Button
+                style="@style/RoundedTextInputLayout"
+                android:id="@+id/freelancer_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Freelancer"
+                android:textStyle="bold"
+                android:backgroundTint="@color/secondary"
+                android:textColor="@color/text_primary"
+                android:layout_marginEnd="8dp"
+                android:onClick="onOptionSelected"/>
+
+            <!-- Customer Option -->
+            <Button
+                style="@style/RoundedTextInputLayout"
+                android:id="@+id/customer_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Customer"
+                android:textStyle="bold"
+                android:backgroundTint="@color/secondary"
+                android:textColor="@color/text_primary"
+                android:layout_marginStart="8dp"
+                android:onClick="onOptionSelected"/>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="ID Type"
+            android:textSize="14sp"
+            android:textColor="@color/primary"
+            android:layout_marginBottom="10dp"
+            android:textStyle="bold"
+            />
+
+        <!-- ID Type -->
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/RoundedTextInputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:boxStrokeColor="@color/secondary"
+            android:textColorHint="@color/secondary"
+            app:hintTextColor="@color/primary">
+
+            <Spinner
+                android:id="@+id/id_type_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@drawable/spinner_background"
+                android:spinnerMode="dropdown" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Phone Number"
+            android:textSize="14sp"
+            android:textColor="@color/primary"
+            android:layout_marginBottom="10dp"
+            android:textStyle="bold"
+            />
+        <!-- ID Number -->
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/RoundedTextInputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            app:boxStrokeColor="@color/secondary"
+            app:hintTextColor="@color/secondary"
+            android:textColorHint="@color/secondary">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter ID number"
+                android:textColor="@color/secondary"
+                android:textStyle="bold" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Finish Button -->
+        <Button
+            style="@style/RoundedTextInputLayout"
+            android:id="@+id/finish_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/finish_signing_up"
+            android:backgroundTint="@color/primary"
+            android:textColor="@color/text_primary"
+            android:textStyle="bold"/>
+    </LinearLayout>
+</ScrollView>
