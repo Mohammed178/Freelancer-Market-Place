@@ -12,7 +12,8 @@ public class SignUpActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.signup);
 
-//        Link the Login text to the Login page
+
+//      Link the Login text to the Login page
         TextView signUpText = findViewById(R.id.login_link);
         signUpText.setOnClickListener(v -> {
             Intent i = new Intent(SignUpActivity.this,
