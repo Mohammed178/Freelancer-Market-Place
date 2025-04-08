@@ -84,7 +84,7 @@ public class HomePageActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
 
-        // Assume you have a `loggedInUser` object
+
         String role = getIntent().getStringExtra("role"); // "client" or "freelancer"
 
         if ("client".equalsIgnoreCase(role)) {
@@ -100,11 +100,11 @@ public class HomePageActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.menu_add_job) {
-            startActivity(new Intent(this, AddJobActivity.class));
+            startActivity(new Intent(this, AddJobActivity.class).putExtra("userID",getIntent().getStringExtra("userID")));
             return true;
 
         } else if (id == R.id.menu_manage_jobs) {
-            startActivity(new Intent(this, ManageJobsActivity.class));
+            startActivity(new Intent(this, ManageJobsActivity.class).putExtra("userID",getIntent().getStringExtra("userID")));
             return true;
 
         } else if (id == R.id.menu_logout) {
