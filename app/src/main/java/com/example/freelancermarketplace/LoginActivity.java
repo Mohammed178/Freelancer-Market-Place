@@ -88,6 +88,7 @@ public class LoginActivity extends AppCompatActivity {
                 Intent i = new Intent(LoginActivity.this, HomePageActivity.class);
                 i.putExtra("userId", loggedInUser.getUserId());
                 i.putExtra("userName", loggedInUser.getName());
+                i.putExtra("role", loggedInUser.getRole());
                 startActivity(i);
 
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);

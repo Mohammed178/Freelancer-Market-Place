@@ -51,7 +51,7 @@ public class FinishSignUpActivity extends AppCompatActivity {
         });
 
         customerButton.setOnClickListener(v -> {
-            selectedRole = "customer";
+            selectedRole = "client";
             highlightSelectedButton(customerButton, freelancerButton);
         });
 

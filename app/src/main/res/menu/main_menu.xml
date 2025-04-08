@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- For Clients -->
+    <item
+        android:id="@+id/menu_add_job"
+        android:title="Add New Job"
+        android:visible="false" />
+
+    <item
+        android:id="@+id/menu_manage_jobs"
+        android:title="Manage My Jobs"
+        android:visible="false" />
+
+    <!-- For Everyone -->
+    <item
+        android:id="@+id/menu_logout"
+        android:title="Logout" />
+</menu>
