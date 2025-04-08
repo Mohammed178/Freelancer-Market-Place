@@ -7,8 +7,6 @@
     android:background="@color/background">
 
     <!-- Header -->
-
-    <!-- Chat Messages -->
     <RelativeLayout
         android:layout_marginTop="20sp"
         android:layout_width="match_parent"
@@ -37,7 +35,7 @@
 
     </RelativeLayout>
 
-
+    <!-- Chat Messages -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/chatRecyclerView"
         android:layout_width="match_parent"
