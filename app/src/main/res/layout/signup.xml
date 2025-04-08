@@ -54,6 +54,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:id="@+id/txtEmail"
             android:inputType="textEmailAddress"
             android:textColor="@color/secondary" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -72,6 +73,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:id="@+id/txtPassword"
             android:inputType="textPassword"
             android:textColor="@color/secondary" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -92,6 +94,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:id="@+id/txtPasswordConfirm"
             android:inputType="textPassword" />
 
     </com.google.android.material.textfield.TextInputLayout>

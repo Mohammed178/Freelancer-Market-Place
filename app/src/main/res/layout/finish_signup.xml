@@ -45,6 +45,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:id="@+id/txtFirstName"
                     android:textColor="@color/secondary"
                     android:textStyle="bold"/>
             </com.google.android.material.textfield.TextInputLayout>
@@ -64,6 +65,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/secondary"
+                    android:id="@+id/txtLastName"
                     android:textStyle="bold"/>
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
@@ -83,6 +85,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="phone"
+                android:id="@+id/txtPhone"
                 android:textColor="@color/secondary"
                 android:textStyle="bold"/>
         </com.google.android.material.textfield.TextInputLayout>
@@ -182,6 +185,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:id="@+id/txtID"
                 android:hint="Enter ID number"
                 android:textColor="@color/secondary"
                 android:textStyle="bold" />

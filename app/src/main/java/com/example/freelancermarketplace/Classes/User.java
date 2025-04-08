@@ -5,6 +5,16 @@ public class User {
     private String name;
     private String email;
     private String profilePicUrl;
+
+    public String getContact() {
+        return contact;
+    }
+
+    public void setContact(String contact) {
+        this.contact = contact;
+    }
+
+    private String contact;
     private String role;
 
     public String getPassword() {
@@ -20,10 +30,11 @@ public class User {
     public User() {
     }
 
-    public User(String userId, String name, String email, String password, String profilePicUrl, String role) {
+    public User(String userId, String name, String email, String password, String profilePicUrl,String contact, String role) {
         this.userId = userId;
         this.name = name;
         this.email = email;
+        this.contact = contact;
         this.profilePicUrl = profilePicUrl;
         this.password = password;
         this.role = role;
