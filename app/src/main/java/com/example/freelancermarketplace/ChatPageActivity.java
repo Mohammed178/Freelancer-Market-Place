@@ -10,9 +10,19 @@ import androidx.annotation.*;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 // Java implementation
 public class ChatPageActivity extends AppCompatActivity {
+    private RecyclerView recyclerView;
+    private MessageAdapter adapter;
+    private List<Message> messages = new ArrayList<>();
+    private EditText messageInput;
+    private Button sendButton;
     private static final int FILE_PICK_REQUEST_CODE = 100;
     private static final int PERMISSION_REQUEST_CODE = 101;
 
@@ -21,9 +31,39 @@ public class ChatPageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.chat_page);
 
+//    Show messages on the chat page RecyclerView
+        recyclerView = findViewById(R.id.chatRecyclerView);
+        messageInput = findViewById(R.id.messageInput);
+        sendButton = findViewById(R.id.send_message_button);
 
+        // Setup RecyclerView
+        adapter = new MessageAdapter(messages);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(adapter);
+
+        // Send button click listener
+        sendButton.setOnClickListener(v -> {
+            String messageText = messageInput.getText().toString().trim();
+            if(!messageText.isEmpty()) {
+                Message message = new Message(messageText, true);
+                adapter.addMessage(message);
+                messageInput.getText().clear();
+                recyclerView.smoothScrollToPosition(messages.size() - 1);
+            }
+        });
+
+//        Initialize buttons
         Button attachButton = findViewById(R.id.attach_file_button);
+        ImageButton goBackButton = findViewById(R.id.backButton);
 
+        //        Go back to Home Page
+        goBackButton.setOnClickListener(v-> {
+            Intent intent = new Intent(ChatPageActivity.this, HomePageActivity.class);
+            startActivity(intent);
+
+//            Add animation
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+        });
         attachButton.setOnClickListener(v -> {
             if (checkPermissions()) {
                 openFilePicker();

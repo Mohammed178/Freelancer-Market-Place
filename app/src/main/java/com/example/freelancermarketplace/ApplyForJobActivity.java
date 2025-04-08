@@ -11,6 +11,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.google.android.material.textfield.TextInputEditText;
+
 public class ApplyForJobActivity extends AppCompatActivity{
 
     private static final int FILE_PICK_REQUEST_CODE = 100;
@@ -24,6 +26,10 @@ public class ApplyForJobActivity extends AppCompatActivity{
 
         Button attachButton = findViewById(R.id.attach_file_button);
         Button goBackButton = findViewById(R.id.goBack);
+
+//        Get the description text form the description box
+        TextInputEditText descriptionInput = findViewById(R.id.description_box);
+        String userInput = descriptionInput.getText().toString().trim();
 
 //        Go back to Home Page
         goBackButton.setOnClickListener(v-> {
