@@ -19,6 +19,9 @@ public class Proposal {
         this.status = status;
     }
 
+    public Proposal() {
+    }
+
     public String getProposalId() {
         return proposalId;
     }

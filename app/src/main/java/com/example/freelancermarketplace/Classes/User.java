@@ -7,11 +7,25 @@ public class User {
     private String profilePicUrl;
     private String role;
 
-    public User(String userId, String name, String email, String profilePicUrl, String role) {
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    private String password;
+
+    public User() {
+    }
+
+    public User(String userId, String name, String email, String password, String profilePicUrl, String role) {
         this.userId = userId;
         this.name = name;
         this.email = email;
         this.profilePicUrl = profilePicUrl;
+        this.password = password;
         this.role = role;
     }
 

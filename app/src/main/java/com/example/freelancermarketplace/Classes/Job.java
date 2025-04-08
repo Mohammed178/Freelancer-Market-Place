@@ -21,6 +21,9 @@ public class Job {
         this.timestamp = timestamp;
     }
 
+    public Job() {
+    }
+
     public String getJobId() {
         return jobId;
     }

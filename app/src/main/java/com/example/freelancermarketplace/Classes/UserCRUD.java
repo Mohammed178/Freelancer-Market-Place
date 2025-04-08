@@ -30,4 +30,8 @@ public class UserCRUD {
     public void deleteUser(String userId) {
         databaseReference.child(userId).removeValue();
     }
+
+    public void getAllUsers(final ValueEventListener listener) {
+        databaseReference.addListenerForSingleValueEvent(listener);
+    }
 }

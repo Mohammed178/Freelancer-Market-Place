@@ -19,6 +19,9 @@ public class Review {
         this.timestamp = timestamp;
     }
 
+    public Review() {
+    }
+
     public String getReviewId() {
         return reviewId;
     }
