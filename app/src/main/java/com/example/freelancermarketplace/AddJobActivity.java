@@ -1,5 +1,6 @@
 package com.example.freelancermarketplace;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,7 +14,7 @@ public class AddJobActivity extends AppCompatActivity {
 
     private EditText titleInput, descriptionInput, budgetInput;
     private Button postButton;
-
+    private Button goBackButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +25,7 @@ public class AddJobActivity extends AppCompatActivity {
         descriptionInput = findViewById(R.id.job_description_input);
         budgetInput = findViewById(R.id.job_budget_input);
         postButton = findViewById(R.id.post_job_button);
+        goBackButton = findViewById(R.id.goBack);
         String clientId = getIntent().getStringExtra("userID");
 
         postButton.setOnClickListener(v -> {
@@ -43,6 +45,14 @@ public class AddJobActivity extends AppCompatActivity {
             new JobCRUD().saveJob(job);
             Toast.makeText(this, "Job Posted", Toast.LENGTH_SHORT).show();
             finish();
+        });
+//        Go back to Home Page
+        goBackButton.setOnClickListener(v-> {
+            Intent intent = new Intent(AddJobActivity.this, HomePageActivity.class);
+            startActivity(intent);
+
+//            Add animation
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         });
     }
 }

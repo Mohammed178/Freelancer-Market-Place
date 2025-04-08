@@ -2,18 +2,21 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="24dp">
+    android:padding="24dp"
+    android:background="@color/background">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="@color/background">
 
         <EditText
             android:id="@+id/job_title_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Job Title" />
+            android:hint="Job Title"
+            android:textColorHint="@color/secondary"/>
 
         <EditText
             android:id="@+id/job_description_input"
@@ -21,6 +24,7 @@
             android:layout_height="wrap_content"
             android:hint="Description"
             android:inputType="textMultiLine"
+            android:textColorHint="@color/secondary"
             android:lines="4"
             android:minLines="3" />
 
@@ -29,13 +33,31 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Budget"
+            android:textColorHint="@color/secondary"
             android:inputType="numberDecimal" />
 
         <Button
+            style="@style/RoundedTextInputLayout"
             android:id="@+id/post_job_button"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="56sp"
+            android:textStyle="bold"
+            android:textSize="18sp"
             android:text="Post Job"
             android:layout_marginTop="16dp" />
+
+        <Button
+            android:id="@+id/goBack"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_weight="1"
+            android:text="Go Back"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_marginTop="30sp"
+            android:layout_gravity="center_horizontal"
+            android:textColor="@color/secondary"
+            android:backgroundTint="@color/red"
+            style="@style/RoundedTextInputLayout"/>
     </LinearLayout>
 </ScrollView>

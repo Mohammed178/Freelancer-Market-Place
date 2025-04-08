@@ -43,3 +43,9 @@ dependencies {
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
 }
+buildscript {
+    dependencies {
+        // Add this line
+        classpath ("com.google.gms:google-services:4.4.1") // Use latest version
+    }
+}
