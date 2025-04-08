@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+
+    <!-- For Android 10 (API 29) and above -->
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+    <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
+    <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" />
 
     <application
         android:allowBackup="true"
@@ -10,30 +16,28 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FreelancerMarketPlace">
-        <activity
-            android:name=".ManageJobsActivity"
-            android:exported="false" />
-        <activity
-            android:name=".AddJobActivity"
-            android:exported="false" /> <!-- Log in Page -->
-        <activity
-            android:name=".LoginActivity"
+
+<!--    Log in Page    -->
+        <activity android:name=".LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity> <!-- Sign Up Page -->
-        <activity
-            android:name=".SignUpActivity"
-            android:exported="true" /> <!-- Finish Sign Up Page -->
-        <activity
-            android:name=".FinishSignUpActivity"
-            android:exported="true" />
-        <activity
-            android:name=".HomePageActivity"
-            android:exported="true" />
+        </activity>
+
+<!--   Sign Up Page   -->
+        <activity android:name=".SignUpActivity"
+            android:exported="true"/>
+
+<!--   Finish Sign Up Page   -->
+        <activity android:name=".FinishSignUpActivity"
+            android:exported="true"/>
+        <activity android:name="ChatPageActivity"
+            android:exported="true"/>
+        <activity android:name=".ApplyForJobActivity"
+            android:exported="true"/>
+
     </application>
 
 </manifest>
