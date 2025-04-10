@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="24dp"
+    android:background="@color/background">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_vertical"
+        android:layout_marginTop="20sp">
+
+        <!-- Header Section -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:layout_marginBottom="32dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Ready to sync your skills as a freelancer?"
+                android:textSize="26sp"
+                android:textStyle="bold"
+                android:textColor="@color/primary"
+                android:gravity="center"
+                android:layout_marginTop="16dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Apply Now:"
+                android:textSize="20sp"
+                android:textStyle="italic"
+                android:textColor="@color/primary"
+                android:gravity="center"
+                android:layout_marginTop="16dp"/>
+        </LinearLayout>
+        
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Brief Description of your skills:"
+            android:textSize="20sp"
+            android:textStyle=""
+            android:fontFamily="arial"
+            android:textColor="@color/secondary"/>
+
+        <!-- Skills Description -->
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/RoundedTextInputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            app:boxStrokeColor="@color/primary"
+            app:hintTextColor="@color/primary">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/description_box"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:hint="Type Here..."
+                android:inputType="textMultiLine"
+                android:gravity="top"
+                android:background="@color/light_gray"
+                android:textColorHint="@color/text_primary"
+                app:hintTextColor="@color/text_primary"
+                android:textColor="@color/text_primary"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Resume Attachment -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Please insert your Resume / CV:"
+            android:textColor="@color/primary"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:layout_marginBottom="8dp"/>
+
+        <Button
+            style="@style/RoundedTextInputLayout"
+            android:id="@+id/attach_file_button"
+            android:layout_width="match_parent"
+            android:layout_gravity="center_horizontal"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10sp"
+            android:layout_weight="1"
+            android:text="Attach File"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:backgroundTint="@color/text_primary"
+            android:textColor="@color/secondary"
+            android:drawableRight="@drawable/ic_attach_file"
+            android:padding="10dp"/>
+
+        <!-- Submit Button -->
+        <Button
+            android:id="@+id/submitButton"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_weight="1"
+            android:text="Submit Application"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="50sp"
+            android:layout_gravity="center_horizontal"
+            android:textColor="@color/secondary"
+            android:backgroundTint="@color/primary"
+            style="@style/RoundedTextInputLayout"/>
+
+        <Button
+            android:id="@+id/goBack"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_weight="1"
+            android:text="Go Back"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_gravity="center_horizontal"
+            android:textColor="@color/secondary"
+            android:backgroundTint="@color/red"
+            style="@style/RoundedTextInputLayout"/>
+
+    </LinearLayout>
+</ScrollView>
