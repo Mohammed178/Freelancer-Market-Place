@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -37,6 +38,11 @@ public class HomePageActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setTitle("HOME");
+        setSupportActionBar(toolbar);
+
 
         currentUserId = getIntent().getStringExtra("userId");
         currentUserRole = getIntent().getStringExtra("role");
@@ -84,12 +90,17 @@ public class HomePageActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
 
+        // Check user role and adjust menu visibility
+        MenuItem addJobItem = menu.findItem(R.id.menu_add_job);
+        MenuItem manageJobsItem = menu.findItem(R.id.menu_manage_jobs);
 
-        String role = getIntent().getStringExtra("role"); // "client" or "freelancer"
+        if ("client".equals(currentUserRole)) {
+            // Show Client-specific options
+            addJobItem.setVisible(true);
+            manageJobsItem.setVisible(true);
+        }
+        if("freelancer".equals(currentUserRole)){
 
-        if ("client".equalsIgnoreCase(role)) {
-            menu.findItem(R.id.menu_add_job).setVisible(true);
-            menu.findItem(R.id.menu_manage_jobs).setVisible(true);
         }
 
         return true;
@@ -100,11 +111,11 @@ public class HomePageActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.menu_add_job) {
-            startActivity(new Intent(this, AddJobActivity.class).putExtra("userID",getIntent().getStringExtra("userID")));
+            startActivity(new Intent(this, AddJobActivity.class).putExtra("userID",currentUserId));
             return true;
 
         } else if (id == R.id.menu_manage_jobs) {
-            startActivity(new Intent(this, ManageJobsActivity.class).putExtra("userID",getIntent().getStringExtra("userID")));
+            startActivity(new Intent(this, ManageJobsActivity.class).putExtra("userID",currentUserId));
             return true;
 
         } else if (id == R.id.menu_logout) {

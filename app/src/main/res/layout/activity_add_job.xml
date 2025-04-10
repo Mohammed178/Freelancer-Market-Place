@@ -1,41 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="24dp">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/background"
+    android:padding="16dp">
 
-    <LinearLayout
+    <!-- Toolbar Section -->
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:background="?android:attr/colorPrimary"
+        android:title="Add New Job"
+        android:titleTextColor="@android:color/white"
+        android:paddingEnd="16dp"
+        android:paddingStart="16dp"/>
 
-        <EditText
-            android:id="@+id/job_title_input"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Job Title" />
+    <!-- Job Title Section -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/txtJobTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:hint="Job Title"
+        app:boxStrokeColor="@color/primary"
+        android:textColorHint="@color/secondary">
 
-        <EditText
-            android:id="@+id/job_description_input"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/jobTitle"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Description"
-            android:inputType="textMultiLine"
-            android:lines="4"
-            android:minLines="3" />
+            android:layout_height="50dp"
+            android:textColor="@color/secondary"
+            android:inputType="text"/>
+    </com.google.android.material.textfield.TextInputLayout>
 
-        <EditText
-            android:id="@+id/job_budget_input"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Budget"
-            android:inputType="numberDecimal" />
+    <!-- Job Description Section -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/txtJobDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:hint="Job Description"
+        app:boxStrokeColor="@color/primary"
+        android:textColorHint="@color/secondary">
 
-        <Button
-            android:id="@+id/post_job_button"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/jobDescription"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Post Job"
-            android:layout_marginTop="16dp" />
-    </LinearLayout>
-</ScrollView>
+            android:layout_height="150dp"
+            android:textColor="@color/secondary"
+            android:inputType="textMultiLine"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Budget Section -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/txtJobBudget"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:hint="Budget"
+        app:boxStrokeColor="@color/primary"
+        android:textColorHint="@color/secondary">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/jobBudget"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:textColor="@color/secondary"
+            android:inputType="numberDecimal"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+
+    <!-- Submit Button -->
+    <Button
+        android:id="@+id/btnSubmitJob"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="24dp"
+        android:backgroundTint="@color/primary"
+        android:text="Submit Job"
+        android:textColor="@color/text_primary"
+        android:textStyle="bold"/>
+
+</LinearLayout>

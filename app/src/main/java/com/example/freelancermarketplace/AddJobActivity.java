@@ -3,6 +3,7 @@ package com.example.freelancermarketplace;
 import android.os.Bundle;
 import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.example.freelancermarketplace.Classes.Job;
 import com.example.freelancermarketplace.Classes.JobCRUD;
@@ -19,11 +20,15 @@ public class AddJobActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_job);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);  // Adds a back button
+        getSupportActionBar().setTitle("Add New Job");  // Set title
 
-        titleInput = findViewById(R.id.job_title_input);
-        descriptionInput = findViewById(R.id.job_description_input);
-        budgetInput = findViewById(R.id.job_budget_input);
-        postButton = findViewById(R.id.post_job_button);
+        titleInput = findViewById(R.id.jobTitle);
+        descriptionInput = findViewById(R.id.jobDescription);
+        budgetInput = findViewById(R.id.jobBudget);
+        postButton = findViewById(R.id.btnSubmitJob);
         String clientId = getIntent().getStringExtra("userID");
 
         postButton.setOnClickListener(v -> {
