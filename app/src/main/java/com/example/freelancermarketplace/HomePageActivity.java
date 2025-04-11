@@ -94,10 +94,12 @@ public class HomePageActivity extends AppCompatActivity {
         MenuItem addJobItem = menu.findItem(R.id.menu_add_job);
         MenuItem manageJobsItem = menu.findItem(R.id.menu_manage_jobs);
         MenuItem browseJobsItem = menu.findItem(R.id.menu_browse);
+        MenuItem viewProposalItem = menu.findItem(R.id.menu_view_proposals);
         if ("client".equals(currentUserRole)) {
             // Show Client-specific options
             addJobItem.setVisible(true);
             manageJobsItem.setVisible(true);
+            viewProposalItem.setVisible(true);
         }
         if("freelancer".equals(currentUserRole)){
             browseJobsItem.setVisible(true);
@@ -124,7 +126,7 @@ public class HomePageActivity extends AppCompatActivity {
             finish();
             return true;
         } else if (id == R.id.menu_browse) {
-            
+            startActivity(new Intent(this, BrowseJobsActivity.class).putExtra("userID",currentUserId));
         }
 
         return super.onOptionsItemSelected(item);

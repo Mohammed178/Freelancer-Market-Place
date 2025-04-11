@@ -32,7 +32,7 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.JobViewHolder> {
         Job job = jobs.get(position);
         holder.title.setText(job.getTitle());
         holder.desc.setText(job.getDescription());
-        holder.budget.setText("$" + job.getBudget());
+        holder.budget.setText("RM " + job.getBudget());
     }
 
     @Override

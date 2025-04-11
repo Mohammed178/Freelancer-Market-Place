@@ -22,4 +22,9 @@
         android:title="Browse Jobs"
         android:visible="false"
         app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/menu_view_proposals"
+        android:title="View Proposals"
+        android:visible="false"
+        app:showAsAction="ifRoom" />
 </menu>

@@ -16,9 +16,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FreelancerMarketPlace">
         <activity
-            android:name=".BrowseJobsActivity"
+            android:name=".ViewProposalsActivity"
             android:exported="false" />
-        <!-- Log in Page -->
+        <activity
+            android:name=".BrowseJobsActivity"
+            android:exported="false" /> <!-- Log in Page -->
         <activity
             android:name=".LoginActivity"
             android:exported="true">

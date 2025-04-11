@@ -5,6 +5,7 @@ import android.widget.*;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -19,19 +20,26 @@ import java.util.List;
 public class BrowseJobsActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
-    private JobAdapter jobAdapter;
+    private com.example.freelancermarketplace.JobAdapterBrowse jobAdapter;
     private List<Job> jobList = new ArrayList<>();
     private List<Job> filteredList = new ArrayList<>();
     private JobCRUD jobCRUD = new JobCRUD();
+    String currentUserId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_browse_jobs);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);  // Adds a back button
+        getSupportActionBar().setTitle("Add New Job");  // Set title
+
+        currentUserId = getIntent().getStringExtra("userID");
 
         recyclerView = findViewById(R.id.jobsRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        jobAdapter = new JobAdapter(filteredList);
+        jobAdapter = new com.example.freelancermarketplace.JobAdapterBrowse(filteredList,currentUserId);
         recyclerView.setAdapter(jobAdapter);
 
         SearchView searchView = findViewById(R.id.searchView);
