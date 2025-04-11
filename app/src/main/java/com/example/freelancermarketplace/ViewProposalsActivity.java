@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -15,8 +16,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.freelancermarketplace.Classes.Job;
+import com.example.freelancermarketplace.Classes.JobCRUD;
 import com.example.freelancermarketplace.Classes.Proposal;
 import com.example.freelancermarketplace.Classes.ProposalAdapter;
+import com.example.freelancermarketplace.Classes.ProposalCRUD;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,6 +33,7 @@ public class ViewProposalsActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private ProposalAdapter adapter;
+    private String currentUserID;
     private List<Proposal> proposalList = new ArrayList<>();
 
     // Mock maps for demonstration
@@ -41,6 +48,7 @@ public class ViewProposalsActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);  // Adds a back button
         getSupportActionBar().setTitle("View your Proposals");
+        currentUserID = getIntent().getStringExtra("userID");
         recyclerView = findViewById(R.id.recyclerViewProposals);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -50,14 +58,66 @@ public class ViewProposalsActivity extends AppCompatActivity {
         loadMockData();
     }
     private void loadMockData() {
-        // Add job info and freelancer names
-        jobMap.put("job1", new Job("job1", "Logo Design", "Create a logo", 100.0, "open", "client123", null, System.currentTimeMillis()));
-        freelancerNames.put("freelancer1", "Alice");
+        ProposalCRUD proposalCrud = new ProposalCRUD();
+        JobCRUD jobCrud = new JobCRUD();
 
-        // Add sample proposal
-        proposalList.add(new Proposal("proposal1", "job1", "freelancer1", 90.0, "I can do it!", System.currentTimeMillis(), "pending"));
-        adapter.notifyDataSetChanged();
+        List<Proposal> allProposals = new ArrayList<>();
+        List<Job> jobsList = new ArrayList<>();
+
+        // Get clientId passed from the previous activity
+        String currentClientId = getIntent().getStringExtra("clientId");
+
+        proposalCrud.getAllProposals(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                allProposals.clear();
+                for (DataSnapshot snap : snapshot.getChildren()) {
+                    Proposal proposal = snap.getValue(Proposal.class);
+                    allProposals.add(proposal);
+                }
+
+                // Load jobs only after proposals are loaded
+                jobCrud.getAllJobs(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        jobsList.clear();
+                        for (DataSnapshot snap : snapshot.getChildren()) {
+                            Job job = snap.getValue(Job.class);
+                            jobsList.add(job);
+                        }
+
+                        // Now filter proposals
+                        List<Proposal> filteredProposals = new ArrayList<>();
+                        for (Proposal proposal : allProposals) {
+                            if ("pending".equalsIgnoreCase(proposal.getStatus())) {
+                                for (Job job : jobsList) {
+                                    if (job.getJobId().equals(proposal.getJobId()) &&
+                                            job.getClientId().equals(currentClientId)) {
+                                        filteredProposals.add(proposal);
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+
+                        adapter.updateList(filteredProposals);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        Toast.makeText(ViewProposalsActivity.this, "Failed to load Jobs", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(ViewProposalsActivity.this, "Failed to load Proposals", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
+
+
     private void showProposalDialog(Proposal proposal) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Proposal Options")

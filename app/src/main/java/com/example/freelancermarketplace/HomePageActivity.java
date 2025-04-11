@@ -127,6 +127,8 @@ public class HomePageActivity extends AppCompatActivity {
             return true;
         } else if (id == R.id.menu_browse) {
             startActivity(new Intent(this, BrowseJobsActivity.class).putExtra("userID",currentUserId));
+        } else if (id == R.id.menu_view_proposals) {
+            startActivity(new Intent(this, ViewProposalsActivity.class).putExtra("userID",currentUserId));
         }
 
         return super.onOptionsItemSelected(item);

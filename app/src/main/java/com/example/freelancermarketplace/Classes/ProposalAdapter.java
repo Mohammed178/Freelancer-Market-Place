@@ -17,7 +17,7 @@ import java.util.Map;
 public class ProposalAdapter extends RecyclerView.Adapter<ProposalAdapter.ProposalViewHolder> {
 
     private final Context context;
-    private final List<Proposal> proposals;
+    private List<Proposal> proposals;
     private final Map<String, Job> jobMap;
     private final Map<String, String> freelancerNames;
     private final OnProposalClickListener listener;
@@ -36,7 +36,10 @@ public class ProposalAdapter extends RecyclerView.Adapter<ProposalAdapter.Propos
         this.freelancerNames = freelancerNames;
         this.listener = listener;
     }
-
+    public void updateList(List<Proposal> newList) {
+        this.proposals = newList;
+        notifyDataSetChanged();
+    }
     @NonNull
     @Override
     public ProposalViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -50,8 +53,8 @@ public class ProposalAdapter extends RecyclerView.Adapter<ProposalAdapter.Propos
         Job job = jobMap.get(proposal.getJobId());
         String freelancerName = freelancerNames.get(proposal.getFreelancerId());
 
-        holder.tvJobTitle.setText(job != null ? job.getTitle() : "Unknown Job");
-        holder.tvFreelancerName.setText("Freelancer: " + (freelancerName != null ? freelancerName : "Unknown"));
+        holder.tvJobTitle.setText(job != null ? job.getTitle() : "Job not found");
+        holder.tvFreelancerName.setText("Freelancer: " + (freelancerName != null ? freelancerName : "Name not available"));
         holder.tvBidAmount.setText("Bid: $" + proposal.getBidAmount());
 
         holder.itemView.setOnClickListener(v -> listener.onProposalClick(proposal));
