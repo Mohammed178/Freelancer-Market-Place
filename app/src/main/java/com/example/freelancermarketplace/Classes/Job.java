@@ -1,6 +1,8 @@
 package com.example.freelancermarketplace.Classes;
 
-public class Job {
+import java.io.Serializable;
+
+public class Job implements Serializable {
     private String jobId;
     private String title;
     private String description;
