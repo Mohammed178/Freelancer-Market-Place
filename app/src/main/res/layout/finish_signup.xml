@@ -188,7 +188,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/txtID"
-                android:hint="Enter ID number"
+                android:hint="Enter Number"
                 android:textColor="@color/secondary"
                 android:textStyle="bold" />
         </com.google.android.material.textfield.TextInputLayout>

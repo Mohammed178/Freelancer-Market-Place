@@ -131,7 +131,8 @@ public class HomePageActivity extends AppCompatActivity {
             startActivity(new Intent(this, BrowseJobsActivity.class).putExtra("userID",currentUserId));
         } else if (id == R.id.menu_view_proposals) {
             startActivity(new Intent(this, ViewProposalsActivity.class).putExtra("userID",currentUserId));
-        } else if (id == R.id.menu_view_freelancer_proposals) {
+        }
+        else if (id == R.id.menu_view_freelancer_proposals) {
             startActivity(new Intent(this, ViewFreelancerProposalActivity.class).putExtra("userID",currentUserId));
         }
 

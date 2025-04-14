@@ -67,7 +67,6 @@ public class FinishSignUpActivity extends AppCompatActivity {
                 Toast.makeText(this, "Please fill in all fields and select a role", Toast.LENGTH_SHORT).show();
                 return;
             }
-
             // Create and save user
             User user = new User();
             user.setUserId(idNumber);
