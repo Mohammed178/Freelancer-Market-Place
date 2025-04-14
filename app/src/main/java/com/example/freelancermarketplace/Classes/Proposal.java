@@ -1,6 +1,8 @@
 package com.example.freelancermarketplace.Classes;
 
-public class Proposal {
+import java.io.Serializable;
+
+public class Proposal implements Serializable {
     private String proposalId;
     private String jobId; // reference to the job the proposal is for
     private String freelancerId;
@@ -77,4 +79,6 @@ public class Proposal {
     public void setStatus(String status) {
         this.status = status;
     }
+
+
 }

@@ -13,6 +13,10 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.freelancermarketplace.Classes.Proposal;
+import com.example.freelancermarketplace.Classes.User;
+import com.google.android.gms.common.api.Api;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,6 +26,9 @@ public class ChatPageActivity extends AppCompatActivity {
     private MessageAdapter adapter;
     private List<Message> messages = new ArrayList<>();
     private EditText messageInput;
+    private User freelancer;
+    private User client;
+    private Proposal proposal;
     private Button sendButton;
     private static final int FILE_PICK_REQUEST_CODE = 100;
     private static final int PERMISSION_REQUEST_CODE = 101;
@@ -30,6 +37,10 @@ public class ChatPageActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.chat_page);
+
+        freelancer =(User)getIntent().getSerializableExtra("freelancer");
+        client =(User)getIntent().getSerializableExtra("client");
+        proposal =(Proposal) getIntent().getSerializableExtra("proposal");
 
 //    Show messages on the chat page RecyclerView
         recyclerView = findViewById(R.id.chatRecyclerView);
