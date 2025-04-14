@@ -139,7 +139,7 @@ public class ViewProposalsActivity extends AppCompatActivity {
     }
 
 
-    private void showProposalDialog(Proposal proposal,User freelancer,User loggedInUser) {
+    private void showProposalDialog(Proposal proposal, User freelancer, User loggedInUser) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         View dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_proposal_options, null);
         builder.setView(dialogView);
@@ -148,6 +148,7 @@ public class ViewProposalsActivity extends AppCompatActivity {
 
         Button btnChat = dialogView.findViewById(R.id.btnChat);
         Button btnDecline = dialogView.findViewById(R.id.btnDecline);
+        Button btnAccept = dialogView.findViewById(R.id.btnAccept); // new button
 
         btnChat.setOnClickListener(v -> {
             Intent chatIntent = new Intent(this, ChatPageActivity.class);
@@ -160,14 +161,54 @@ public class ViewProposalsActivity extends AppCompatActivity {
         });
 
         btnDecline.setOnClickListener(v -> {
-            updateProposalStatusToDeclined(proposal);
+            proposal.setStatus("declined");
+            updateProposalStatus(proposal);
             dialog.dismiss();
         });
+
+        btnAccept.setOnClickListener(v -> {
+            if (!"negotiating".equalsIgnoreCase(proposal.getStatus())) {
+                Toast.makeText(this, "Only proposals in negotiation can be accepted.", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            proposal.setStatus("active");
+            updateProposalStatus(proposal);
+
+            // Get the related job, update freelancerId and status
+            JobCRUD jobCRUD = new JobCRUD();
+            jobCRUD.getJob(proposal.getJobId(), new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    Job job = snapshot.getValue(Job.class);
+                    if (job != null) {
+                        job.setFreelancerId(proposal.getFreelancerId());
+                        job.setStatus("in progress");
+
+                        jobCRUD.updateJob(job.getJobId(), job);
+                        Toast.makeText(ViewProposalsActivity.this, "Proposal accepted and job updated!", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(ViewProposalsActivity.this, "Job not found!", Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    Toast.makeText(ViewProposalsActivity.this, "Failed to load job", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+            dialog.dismiss();
+        });
+
+
         dialog.show();
     }
-
-    private void updateProposalStatusToDeclined(Proposal proposal) {
-      ProposalCRUD ccrud = new ProposalCRUD();
-      ccrud.updateProposal(proposal.getProposalId(),proposal);
+    private void updateProposalStatus(Proposal proposal) {
+        ProposalCRUD ccrud = new ProposalCRUD();
+       ccrud.updateProposal(proposal.getProposalId(),proposal);
+        loadMockData(); // Refresh the list
     }
+
+
 }
