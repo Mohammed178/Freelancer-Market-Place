@@ -113,7 +113,7 @@ public class ViewProposalsActivity extends AppCompatActivity {
                         proposalList.clear();
                         for (DataSnapshot snap : proposalSnapshot.getChildren()) {
                             Proposal proposal = snap.getValue(Proposal.class);
-                            if (proposal != null && "pending".equalsIgnoreCase(proposal.getStatus())) {
+                            if (proposal != null && "pending".equalsIgnoreCase(proposal.getStatus()) || "negotiating".equalsIgnoreCase(proposal.getStatus())) {
                                 Job job = jobMap.get(proposal.getJobId());
                                 if (job != null && job.getClientId().equals(currentClientId)) {
                                     proposalList.add(proposal);
@@ -154,6 +154,7 @@ public class ViewProposalsActivity extends AppCompatActivity {
             chatIntent.putExtra("freelancer", freelancer);
             chatIntent.putExtra("client", loggedInUser);
             chatIntent.putExtra("proposal", proposal);
+            chatIntent.putExtra("userID", currentUserID);
             startActivity(chatIntent);
             dialog.dismiss();
         });

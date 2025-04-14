@@ -1,18 +1,77 @@
 package com.example.freelancermarketplace;
 
-public class Message {
-    private String content;
-    private boolean isSent; // true for user messages, false for received
+
+import java.io.Serializable;
+
+public class Message implements Serializable {
+    private String messageId;
+    private String senderId;
+    private String proposalId;
+    private String receiverId;
+    private String text;
     private long timestamp;
 
-    public Message(String content, boolean isSent) {
-        this.content = content;
-        this.isSent = isSent;
-        this.timestamp = System.currentTimeMillis();
+    public Message() {
+        // Default constructor required for Firebase
     }
 
-    // Getters
-    public String getContent() { return content; }
-    public boolean isSent() { return isSent; }
-    public long getTimestamp() { return timestamp; }
+    public Message(String messageId, String proposalId, String senderId, String receiverId, String messageText, long timestamp) {
+        this.messageId = messageId;
+        this.proposalId = proposalId;
+        this.senderId = senderId;
+        this.receiverId = receiverId;
+        this.text = messageText;
+        this.timestamp = timestamp;
+    }
+
+
+    // Getters and setters
+
+    public String getMessageId() {
+        return messageId;
+    }
+
+    public void setMessageId(String messageId) {
+        this.messageId = messageId;
+    }
+
+    public String getSenderId() {
+        return senderId;
+    }
+
+    public void setSenderId(String senderId) {
+        this.senderId = senderId;
+    }
+
+    public String getProposalId() {
+        return proposalId;
+    }
+
+    public void setProposalId(String proposalId) {
+        this.proposalId = proposalId;
+    }
+
+    public String getReceiverId() {
+        return receiverId;
+    }
+
+    public void setReceiverId(String receiverId) {
+        this.receiverId = receiverId;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    public long getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(long timestamp) {
+        this.timestamp = timestamp;
+    }
 }

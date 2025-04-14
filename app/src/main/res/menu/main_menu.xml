@@ -12,6 +12,11 @@
         android:id="@+id/menu_manage_jobs"
         android:title="Manage My Jobs"
         android:visible="false" />
+    <item
+        android:id="@+id/menu_view_freelancer_proposals"
+        android:title="View your Proposals"
+        android:visible="false"
+        />
 
     <!-- For Everyone -->
     <item
@@ -27,4 +32,5 @@
         android:title="View Proposals"
         android:visible="false"
         app:showAsAction="ifRoom" />
+
 </menu>

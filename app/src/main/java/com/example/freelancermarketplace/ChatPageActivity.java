@@ -14,8 +14,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.freelancermarketplace.Classes.Proposal;
+import com.example.freelancermarketplace.Classes.ProposalCRUD;
 import com.example.freelancermarketplace.Classes.User;
 import com.google.android.gms.common.api.Api;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +35,8 @@ public class ChatPageActivity extends AppCompatActivity {
     private User freelancer;
     private User client;
     private Proposal proposal;
+    private DatabaseReference messagesRef;
+
     private Button sendButton;
     private static final int FILE_PICK_REQUEST_CODE = 100;
     private static final int PERMISSION_REQUEST_CODE = 101;
@@ -41,6 +49,12 @@ public class ChatPageActivity extends AppCompatActivity {
         freelancer =(User)getIntent().getSerializableExtra("freelancer");
         client =(User)getIntent().getSerializableExtra("client");
         proposal =(Proposal) getIntent().getSerializableExtra("proposal");
+        if("pending".equalsIgnoreCase(proposal.getStatus())){
+            proposal.setStatus("negotiating");
+            ProposalCRUD c = new ProposalCRUD();
+            c.updateProposal(proposal.getProposalId(),proposal);
+        }
+        messagesRef = FirebaseDatabase.getInstance().getReference("messages");
 
 //    Show messages on the chat page RecyclerView
         recyclerView = findViewById(R.id.chatRecyclerView);
@@ -48,18 +62,45 @@ public class ChatPageActivity extends AppCompatActivity {
         sendButton = findViewById(R.id.send_message_button);
 
         // Setup RecyclerView
-        adapter = new MessageAdapter(messages);
+        adapter = new MessageAdapter(messages,getLoggedInUserId());
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
 
         // Send button click listener
         sendButton.setOnClickListener(v -> {
             String messageText = messageInput.getText().toString().trim();
-            if(!messageText.isEmpty()) {
-                Message message = new Message(messageText, true);
-                adapter.addMessage(message);
-                messageInput.getText().clear();
-                recyclerView.smoothScrollToPosition(messages.size() - 1);
+            if (!messageText.isEmpty()) {
+                String proposalId = proposal.getProposalId();
+                String senderId, receiverId;
+
+                // Determine sender and receiver based on logged-in user
+                if (freelancer.getUserId().equals(getLoggedInUserId())) {
+                    senderId = freelancer.getUserId();
+                    receiverId = client.getUserId();
+                } else {
+                    senderId = client.getUserId();
+                    receiverId = freelancer.getUserId();
+                }
+
+                String messageId = FirebaseDatabase.getInstance().getReference("messages")
+                        .child(proposalId).push().getKey();
+
+                long timestamp = System.currentTimeMillis();
+
+                Message message = new Message(messageId, proposalId, senderId, receiverId, messageText, timestamp);
+
+                // Save message to Firebase
+                FirebaseDatabase.getInstance().getReference("messages")
+                        .child(proposalId)
+                        .child(messageId)
+                        .setValue(message)
+                        .addOnSuccessListener(aVoid -> {
+                            messageInput.getText().clear();
+                            /*messages.add(message);
+                            adapter.notifyItemInserted(messages.size() - 1);
+                            recyclerView.smoothScrollToPosition(messages.size() - 1);*/
+                        })
+                        .addOnFailureListener(e -> Toast.makeText(ChatPageActivity.this, "Failed to send message", Toast.LENGTH_SHORT).show());
             }
         });
 
@@ -82,8 +123,33 @@ public class ChatPageActivity extends AppCompatActivity {
                 requestPermissions();
             }
         });
+
+        DatabaseReference messagesRef = FirebaseDatabase.getInstance()
+                .getReference("messages").child(proposal.getProposalId());
+
+        messagesRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                messages.clear();
+                for (DataSnapshot snap : snapshot.getChildren()) {
+                    Message msg = snap.getValue(Message.class);
+                    messages.add(msg);
+                }
+                adapter.notifyDataSetChanged();
+                recyclerView.scrollToPosition(messages.size() - 1);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(ChatPageActivity.this, "Failed to load messages", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
+    private String getLoggedInUserId() {
+        // Replace with actual logic from session/local storage
+        return getIntent().getStringExtra("userID");  // or use a SessionManager
+    }
     private boolean checkPermissions() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             return true;

@@ -13,15 +13,23 @@ import java.util.List;
 public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final int TYPE_SENT = 1;
     private static final int TYPE_RECEIVED = 2;
-    private List<Message> messages;
 
-    public MessageAdapter(List<Message> messages) {
+    private List<Message> messages;
+    private String loggedInUserId;
+
+    public MessageAdapter(List<Message> messages, String loggedInUserId) {
         this.messages = messages;
+        this.loggedInUserId = loggedInUserId;
     }
 
     @Override
     public int getItemViewType(int position) {
-        return messages.get(position).isSent() ? TYPE_SENT : TYPE_RECEIVED;
+        Message message = messages.get(position);
+        if (message.getSenderId() != null && message.getSenderId().equals(loggedInUserId)) {
+            return TYPE_SENT;
+        } else {
+            return TYPE_RECEIVED;
+        }
     }
 
     @NonNull
@@ -48,7 +56,9 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     }
 
     @Override
-    public int getItemCount() { return messages.size(); }
+    public int getItemCount() {
+        return messages.size();
+    }
 
     public void addMessage(Message message) {
         messages.add(message);
@@ -65,7 +75,7 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         }
 
         void bind(Message message) {
-            messageText.setText(message.getContent());
+            messageText.setText(message.getText());
         }
     }
 
@@ -78,7 +88,7 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         }
 
         void bind(Message message) {
-            messageText.setText(message.getContent());
+            messageText.setText(message.getText());
         }
     }
 }

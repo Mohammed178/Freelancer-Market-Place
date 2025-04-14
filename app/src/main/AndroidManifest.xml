@@ -16,6 +16,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FreelancerMarketPlace">
         <activity
+            android:name=".ViewFreelancerProposalActivity"
+            android:exported="false" />
+        <activity
             android:name=".ViewProposalsActivity"
             android:exported="false" />
         <activity
