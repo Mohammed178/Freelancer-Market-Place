@@ -12,9 +12,11 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.freelancermarketplace.Classes.Bridge;
 import com.example.freelancermarketplace.Classes.Job;
 import com.example.freelancermarketplace.Classes.JobAdapter;
 import com.example.freelancermarketplace.Classes.JobCRUD;
+import com.example.freelancermarketplace.Classes.User;
 import com.example.freelancermarketplace.Classes.UserCRUD;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -47,6 +49,21 @@ public class HomePageActivity extends AppCompatActivity {
         currentUserId = getIntent().getStringExtra("userId");
         currentUserRole = getIntent().getStringExtra("role");
 
+        new UserCRUD().getAllUsers(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot sn :snapshot.getChildren()){
+                    User u = sn.getValue(User.class);
+                    Bridge.listUsers.add(u);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
         if ("freelancer".equals(currentUserRole)) {
             jobCRUD.getAllJobs(new ValueEventListener() {
                 @Override
@@ -57,7 +74,7 @@ public class HomePageActivity extends AppCompatActivity {
                             jobList.add(job);
                         }
                     }
-                    recyclerView.setAdapter(new JobAdapter(jobList));
+                    recyclerView.setAdapter(new JobAdapter(jobList, HomePageActivity.this, currentUserId));
                 }
 
                 @Override
@@ -75,7 +92,7 @@ public class HomePageActivity extends AppCompatActivity {
                             jobList.add(job);
                         }
                     }
-                    recyclerView.setAdapter(new JobAdapter(jobList));
+                    recyclerView.setAdapter(new JobAdapter(jobList, HomePageActivity.this, currentUserId));
                 }
 
                 @Override
