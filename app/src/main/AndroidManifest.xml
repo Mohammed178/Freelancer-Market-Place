@@ -19,6 +19,9 @@
         <activity
             android:name=".ViewFreelancerProposalActivity"
             android:exported="false" />
+
+        <activity android:name=".ManageJobsActivity"
+            android:exported="true"/>
         <activity
             android:name=".ViewProposalsActivity"
             android:exported="false" />

@@ -2,7 +2,7 @@
 <resources>
     <!-- Change these values to your preferred colors -->
 
-    <color name="primary">#6200EE</color>
+    <color name="primary">#FF03DAC5</color>
     <color name="primary_variant">#3700B3</color> <!-- Main brand color -->
     <color name="secondary">#FFFFFF</color> <!-- Secondary text color -->
     <color name="background">#222831</color>

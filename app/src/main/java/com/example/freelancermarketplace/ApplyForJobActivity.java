@@ -40,14 +40,13 @@ public class ApplyForJobActivity extends AppCompatActivity{
         Button goBackButton = findViewById(R.id.goBack);
         Button submitButton = findViewById(R.id.submitButton);
 
+
 //        Get the description text form the description box
         TextInputEditText descriptionInput = findViewById(R.id.description_box);
         String userInput = descriptionInput.getText().toString().trim();
 
 //        Go back to Home Page
         goBackButton.setOnClickListener(v-> {
-            Intent intent = new Intent(ApplyForJobActivity.this, HomePageActivity.class);
-            startActivity(intent);
             finish();
 //            Add animation
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);

@@ -2,6 +2,8 @@ package com.example.freelancermarketplace;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -64,7 +66,6 @@ public class ViewFreelancerProposalActivity extends AppCompatActivity {
         // FIRST: Load all jobs
         UserCRUD crudUser = new UserCRUD();
 
-
         crudUser.getAllUsers(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -81,7 +82,13 @@ public class ViewFreelancerProposalActivity extends AppCompatActivity {
         });
         loadAllJobsFirst();
     }
-
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
     private User getUserById(String id){
 
         User user =new User();

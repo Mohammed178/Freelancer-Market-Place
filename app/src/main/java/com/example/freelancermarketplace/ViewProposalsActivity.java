@@ -3,8 +3,10 @@ package com.example.freelancermarketplace;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -45,15 +47,19 @@ public class ViewProposalsActivity extends AppCompatActivity {
     // Mock maps for demonstration
     private final Map<String, Job> jobMap = new HashMap<>();
     private final Map<String, String> freelancerNames = new HashMap<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_view_proposals);
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);  // Adds a back button
         getSupportActionBar().setTitle("View your Proposals");
+        // Enable the back button in the action bar
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         currentUserID = getIntent().getStringExtra("userID");
         recyclerView = findViewById(R.id.recyclerViewProposals);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -76,7 +82,7 @@ public class ViewProposalsActivity extends AppCompatActivity {
                 }
 
                 // After users are loaded, pass to adapter
-                adapter = new ProposalAdapter(ViewProposalsActivity.this, proposalList, jobMap, userMap,loggedInUser, ViewProposalsActivity.this::showProposalDialog);
+                adapter = new ProposalAdapter(ViewProposalsActivity.this, proposalList, jobMap, userMap, loggedInUser, ViewProposalsActivity.this::showProposalDialog);
                 recyclerView.setAdapter(adapter);
             }
 
@@ -88,6 +94,17 @@ public class ViewProposalsActivity extends AppCompatActivity {
 
         loadMockData();
     }
+
+    // Override the onOptionsItemSelected to finish the activity when the back button is tapped
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     private void loadMockData() {
         ProposalCRUD proposalCrud = new ProposalCRUD();
         JobCRUD jobCrud = new JobCRUD();
@@ -113,14 +130,14 @@ public class ViewProposalsActivity extends AppCompatActivity {
                         proposalList.clear();
                         for (DataSnapshot snap : proposalSnapshot.getChildren()) {
                             Proposal proposal = snap.getValue(Proposal.class);
-                            if (proposal != null && "pending".equalsIgnoreCase(proposal.getStatus()) || "negotiating".equalsIgnoreCase(proposal.getStatus())) {
+                            if (proposal != null && ("pending".equalsIgnoreCase(proposal.getStatus()) ||
+                                    "negotiating".equalsIgnoreCase(proposal.getStatus()))) {
                                 Job job = jobMap.get(proposal.getJobId());
                                 if (job != null && job.getClientId().equals(currentClientId)) {
                                     proposalList.add(proposal);
                                 }
                             }
                         }
-
                         adapter.updateList(proposalList);
                     }
 
@@ -137,7 +154,6 @@ public class ViewProposalsActivity extends AppCompatActivity {
             }
         });
     }
-
 
     private void showProposalDialog(Proposal proposal, User freelancer, User loggedInUser) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -184,7 +200,6 @@ public class ViewProposalsActivity extends AppCompatActivity {
                     if (job != null) {
                         job.setFreelancerId(proposal.getFreelancerId());
                         job.setStatus("in progress");
-
                         jobCRUD.updateJob(job.getJobId(), job);
                         Toast.makeText(ViewProposalsActivity.this, "Proposal accepted and job updated!", Toast.LENGTH_SHORT).show();
                     } else {
@@ -197,18 +212,15 @@ public class ViewProposalsActivity extends AppCompatActivity {
                     Toast.makeText(ViewProposalsActivity.this, "Failed to load job", Toast.LENGTH_SHORT).show();
                 }
             });
-
             dialog.dismiss();
         });
 
-
         dialog.show();
     }
+
     private void updateProposalStatus(Proposal proposal) {
         ProposalCRUD ccrud = new ProposalCRUD();
-       ccrud.updateProposal(proposal.getProposalId(),proposal);
+        ccrud.updateProposal(proposal.getProposalId(), proposal);
         loadMockData(); // Refresh the list
     }
-
-
 }

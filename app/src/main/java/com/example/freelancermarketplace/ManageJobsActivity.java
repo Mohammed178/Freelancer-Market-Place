@@ -31,6 +31,7 @@ public class ManageJobsActivity extends AppCompatActivity {
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1);
         jobListView.setAdapter(adapter);
 
+
         new JobCRUD().getAllJobs(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {

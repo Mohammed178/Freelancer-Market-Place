@@ -1,6 +1,7 @@
 package com.example.freelancermarketplace;
 
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -15,20 +16,25 @@ public class AddJobActivity extends AppCompatActivity {
     private EditText titleInput, descriptionInput, budgetInput;
     private Button postButton;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_job);
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);  // Adds a back button
-        getSupportActionBar().setTitle("Add New Job");  // Set title
+
+        // Enable the back button in the action bar
+        if(getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setTitle("Add New Job");
+        }
 
         titleInput = findViewById(R.id.jobTitle);
         descriptionInput = findViewById(R.id.jobDescription);
         budgetInput = findViewById(R.id.jobBudget);
         postButton = findViewById(R.id.btnSubmitJob);
+
         String clientId = getIntent().getStringExtra("userID");
 
         postButton.setOnClickListener(v -> {
@@ -49,5 +55,15 @@ public class AddJobActivity extends AppCompatActivity {
             Toast.makeText(this, "Job Posted", Toast.LENGTH_SHORT).show();
             finish();
         });
+    }
+
+    // Override the onOptionsItemSelected to handle the back button action
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

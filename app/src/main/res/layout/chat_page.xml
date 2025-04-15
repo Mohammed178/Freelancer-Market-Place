@@ -59,6 +59,7 @@
             android:layout_height="wrap_content"
             android:hint="Type a message"
             android:inputType="text"
+            android:textColor="@color/text_primary"
             android:padding="16dp"
             android:background="@drawable/edittext_rounded_bg"/>
 

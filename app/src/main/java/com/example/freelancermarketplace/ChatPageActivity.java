@@ -108,12 +108,10 @@ public class ChatPageActivity extends AppCompatActivity {
         Button attachButton = findViewById(R.id.attach_file_button);
         ImageButton goBackButton = findViewById(R.id.backButton);
 
-        //        Go back to Home Page
-        goBackButton.setOnClickListener(v-> {
-            Intent intent = new Intent(ChatPageActivity.this, HomePageActivity.class);
-            startActivity(intent);
-
-//            Add animation
+// Go back to HomePageActivity (the same as launched by LoginActivity)
+        goBackButton.setOnClickListener(v -> {
+            finish();
+            // Optional: Add animation
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         });
         attachButton.setOnClickListener(v -> {

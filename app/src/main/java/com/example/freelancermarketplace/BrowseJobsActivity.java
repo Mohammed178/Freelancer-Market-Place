@@ -1,6 +1,7 @@
 package com.example.freelancermarketplace;
 
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.*;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -50,6 +51,7 @@ public class BrowseJobsActivity extends AppCompatActivity {
                 return true;
             }
 
+
             @Override
             public boolean onQueryTextChange(String newText) {
                 filterJobs(newText);
@@ -60,6 +62,13 @@ public class BrowseJobsActivity extends AppCompatActivity {
         loadJobs();
     }
 
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
     private void loadJobs() {
         jobCRUD.getAllJobs(new ValueEventListener() {
             @Override
