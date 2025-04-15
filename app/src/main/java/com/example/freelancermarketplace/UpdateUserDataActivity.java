@@ -9,13 +9,15 @@ import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import com.example.freelancermarketplace.Classes.Bridge;
 import com.example.freelancermarketplace.Classes.User;
 import com.example.freelancermarketplace.Classes.UserCRUD;
 import com.google.android.material.textfield.TextInputEditText;
 public class UpdateUserDataActivity extends AppCompatActivity {
 
-    private TextInputEditText etFirstName, etLastName, etEmail, etPhone, etNewPassword, etConfirmPassword;
+    private TextInputEditText etFirstName, etEmail, etPhone, etNewPassword, etConfirmPassword;
     private Button btnSave;
+    String currentId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +26,7 @@ public class UpdateUserDataActivity extends AppCompatActivity {
 
         // Initialize views
         etFirstName = findViewById(R.id.etFirstName);
-        etLastName = findViewById(R.id.etLastName);
+
         etEmail = findViewById(R.id.etEmail);
         etPhone = findViewById(R.id.etPhone);
         etNewPassword = findViewById(R.id.etNewPassword);
@@ -32,23 +34,25 @@ public class UpdateUserDataActivity extends AppCompatActivity {
         btnSave = findViewById(R.id.btnSave);
 
         // Load existing user data (replace with your actual data loading logic)
-        loadUserData();
 
-        btnSave.setOnClickListener(v -> validateAndSave());
+
+        currentId = getIntent().getStringExtra("userID");
+
+        User user = Bridge.getUserById(currentId);
+        loadUserData(user);
+        btnSave.setOnClickListener(v -> validateAndSave(user));
     }
 
-    private void loadUserData() {
-        // Example data - replace with actual user data retrieval
-        etFirstName.setText("John");
-        etLastName.setText("Doe");
-        etEmail.setText("john.doe@example.com");
-        etPhone.setText("+1234567890");
+    private void loadUserData(User user) {
+        etFirstName.setText(user.getName());
+        etEmail.setText(user.getEmail());
+        etPhone.setText(user.getContact());
     }
 
-    private void validateAndSave() {
+    private void validateAndSave(User user) {
         // Get input values
         String firstName = etFirstName.getText().toString().trim();
-        String lastName = etLastName.getText().toString().trim();
+
         String email = etEmail.getText().toString().trim();
         String phone = etPhone.getText().toString().trim();
         String newPassword = etNewPassword.getText().toString().trim();
@@ -60,10 +64,6 @@ public class UpdateUserDataActivity extends AppCompatActivity {
             return;
         }
 
-        if (lastName.isEmpty()) {
-            etLastName.setError("Last name is required");
-            return;
-        }
 
         if (email.isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             etEmail.setError("Valid email is required");
@@ -88,22 +88,19 @@ public class UpdateUserDataActivity extends AppCompatActivity {
         }
 
         // If all validations pass
-        updateUserProfile(
-                firstName,
-                lastName,
-                email,
-                phone,
-                newPassword
-        );
+        updateUserProfile(firstName, email, phone,  newPassword,user);
     }
 
-    private void updateUserProfile(String firstName, String lastName,
-                                   String email, String phone, String newPassword) {
-        // Implement your update logic here
-        // This could be an API call or database update
+    private void updateUserProfile(String firstName, String email, String phone, String newPassword,User user) {
 
-        // For demonstration purposes:
+         user.setName(firstName);
+         user.setEmail(email);
+         user.setContact(phone);
+         user.setPassword(newPassword);
+
+         new UserCRUD().updateUser(user.getUserId(),user);
+
         Toast.makeText(this, "Profile updated successfully", Toast.LENGTH_SHORT).show();
-        // Consider adding progress indicators and error handling
+        finish();
     }
 }

@@ -53,6 +53,9 @@
         <activity
             android:name=".AddJobActivity"
             android:exported="true" />
+        <activity
+            android:name=".UpdateUserDataActivity"
+            android:exported="true" />
 
     </application>
 
