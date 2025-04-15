@@ -3,7 +3,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="16dp"
-    android:background="@color/background"
+    android:background="@drawable/card_background"
     android:layout_marginBottom="12dp"
     android:elevation="4dp">
 
@@ -29,7 +29,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Short job description..."
-        android:textColor="@color/card_background"
+        android:textColor="@color/primary_variant"
         android:layout_marginTop="4dp" />
 
     <TextView
@@ -59,7 +59,7 @@
         android:layout_height="wrap_content"
         android:text="Mark as Done"
         android:layout_marginTop="6dp"
-        android:backgroundTint="@color/card_background"
+        android:backgroundTint="@color/primary_variant"
         android:textColor="@android:color/white"
         android:paddingLeft="16dp"
         android:paddingRight="16dp" />
