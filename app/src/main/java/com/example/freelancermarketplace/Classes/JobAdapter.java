@@ -7,10 +7,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -88,9 +91,23 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.JobViewHolder> {
                 if ("in progress".equalsIgnoreCase(job.getStatus())) {
                     holder.markAsDoneBtn.setEnabled(true);
                     holder.markAsDoneBtn.setBackgroundColor(ContextCompat.getColor(holder.itemView.getContext(), R.color.primary_variant));
-                } else {
+                } else if("pending".equalsIgnoreCase(job.getStatus())){
                     holder.markAsDoneBtn.setEnabled(false);
                     holder.markAsDoneBtn.setBackgroundColor(Color.GRAY);
+                }else if("concluded".equalsIgnoreCase(job.getStatus())){
+                    holder.markAsDoneBtn.setVisibility(View.GONE);
+                    holder.messageBtn.setVisibility(View.GONE);
+
+                    Review review = Bridge.getReviewbyJobID(job.getJobId());
+                    if(review!=null){
+                        holder.rated.setVisibility(View.VISIBLE);
+                        holder.rated.setRating(review.getRating());
+                        holder.rated.setEnabled(false);
+                        holder.reviewCommentTXT.setText(review.getComments());
+                        holder.reviewCommentTXT.setEnabled(false);
+                        holder.reviewCommentTXT.setVisibility(View.VISIBLE);
+                    }
+
                 }
 
             } else if ("client".equalsIgnoreCase(userLogged.getRole())) {
@@ -151,6 +168,8 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.JobViewHolder> {
             new JobCRUD().updateJob(job.getJobId(), job);
             Toast.makeText(context, "Marked as Done (Pending Approval)", Toast.LENGTH_SHORT).show();
             notifyItemChanged(position);
+
+
         });
 
         holder.approveBtn.setOnClickListener(v -> {
@@ -158,7 +177,11 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.JobViewHolder> {
             new JobCRUD().updateJob(job.getJobId(), job);
             Toast.makeText(context, "Job Approved", Toast.LENGTH_SHORT).show();
             notifyItemChanged(position);
+            showReviewDialog(job, proposal.getFreelancerId());
         });
+
+
+
 
         holder.rejectBtn.setOnClickListener(v -> {
             job.setStatus("in progress");
@@ -173,10 +196,73 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.JobViewHolder> {
         return jobs.size();
     }
 
+    private void showReviewDialog(Job job, String freelancerId) {
+        View dialogView = LayoutInflater.from(context).inflate(R.layout.review_dialog, null);
+        AlertDialog dialog = new AlertDialog.Builder(context)
+                .setView(dialogView)
+                .setCancelable(true)
+                .create();
+
+        TextView freelancerNameView = dialogView.findViewById(R.id.freelancerName);
+        TextView jobTitleView = dialogView.findViewById(R.id.jobTitle);
+        TextView jobBudgetView = dialogView.findViewById(R.id.jobBudget);
+        RatingBar ratingBar = dialogView.findViewById(R.id.ratingBar);
+        EditText commentsView = dialogView.findViewById(R.id.reviewComments);
+        Button submitBtn = dialogView.findViewById(R.id.submitReviewBtn);
+        Button skipBtn = dialogView.findViewById(R.id.skipReviewBtn);
+
+        freelancerNameView.setText("Freelancer: Loading...");
+        jobTitleView.setText("Job: " + job.getTitle());
+        jobBudgetView.setText("Budget: RM " + job.getBudget());
+
+        // Load freelancer name
+        new UserCRUD().getUser(freelancerId, new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                User freelancer = snapshot.getValue(User.class);
+                if (freelancer != null) {
+                    freelancerNameView.setText("Freelancer: " + freelancer.getName());
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {}
+        });
+
+        submitBtn.setOnClickListener(v -> {
+            int rating = (int) ratingBar.getRating();
+            String comments = commentsView.getText().toString().trim();
+
+            if (rating == 0) {
+                Toast.makeText(context, "Please give at least 1 star.", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            Review review = new Review();
+            review.setReviewId(String.valueOf(System.currentTimeMillis()));
+            review.setJobId(job.getJobId());
+            review.setClientId(currentUserId);
+            review.setFreelancerId(freelancerId);
+            review.setRating(rating);
+            review.setComments(comments);
+            review.setTimestamp(System.currentTimeMillis());
+
+            new ReviewCRUD().saveReview(review);
+            Toast.makeText(context, "Review submitted", Toast.LENGTH_SHORT).show();
+            dialog.dismiss();
+        });
+
+        skipBtn.setOnClickListener(v -> dialog.dismiss());
+
+        dialog.show();
+    }
+
+
     static class JobViewHolder extends RecyclerView.ViewHolder {
-        TextView title, desc, budget, clientName, approveBtn,rejectBtn;
+        TextView title, desc, budget, clientName, approveBtn,rejectBtn,reviewCommentTXT;
         Button messageBtn,markAsDoneBtn;
 
+        RatingBar rated ;
         public JobViewHolder(@NonNull View itemView) {
             super(itemView);
 
@@ -188,6 +274,8 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.JobViewHolder> {
             markAsDoneBtn = itemView.findViewById(R.id.markAsDoneBtn);
             approveBtn = itemView.findViewById(R.id.approveBtn);
             rejectBtn = itemView.findViewById(R.id.rejectBtn);
+            rated = itemView.findViewById(R.id.ratingBar);
+            reviewCommentTXT = itemView.findViewById(R.id.ratingComment);
         }
     }
 }

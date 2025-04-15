@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "849935209750",
+    "firebase_url": "https://freelancer-market-place-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "freelancer-market-place",
+    "storage_bucket": "freelancer-market-place.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:849935209750:android:34af232b6a6f055fa0ec37",
+        "android_client_info": {
+          "package_name": "com.example.freelancermarketplace"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBckHwmX7qkNBm1C4i3kfdAkTYL7_KaAw8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

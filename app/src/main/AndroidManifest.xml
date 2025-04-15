@@ -50,6 +50,10 @@
             android:name=".ApplyForJobActivity"
             android:exported="true" />
 
+        <activity
+            android:name=".AddJobActivity"
+            android:exported="true" />
+
     </application>
 
 </manifest>
