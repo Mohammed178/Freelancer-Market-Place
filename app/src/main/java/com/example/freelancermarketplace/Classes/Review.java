@@ -3,8 +3,8 @@ package com.example.freelancermarketplace.Classes;
 public class Review {
     private String reviewId;
     private String jobId; // reference to the job the review is for
-    private String reviewerId; // client or freelancer
-    private String revieweeId; // the other party
+    private String clientId; // client
+    private String freelancerId;
     private int rating; // 1 to 5 stars
     private String comments;
     private long timestamp;
@@ -12,8 +12,8 @@ public class Review {
     public Review(String reviewId, String jobId, String reviewerId, String revieweeId, int rating, String comments, long timestamp) {
         this.reviewId = reviewId;
         this.jobId = jobId;
-        this.reviewerId = reviewerId;
-        this.revieweeId = revieweeId;
+        this.clientId = reviewerId;
+        this.freelancerId = revieweeId;
         this.rating = rating;
         this.comments = comments;
         this.timestamp = timestamp;
@@ -38,20 +38,20 @@ public class Review {
         this.jobId = jobId;
     }
 
-    public String getReviewerId() {
-        return reviewerId;
+    public String getClientId() {
+        return clientId;
     }
 
-    public void setReviewerId(String reviewerId) {
-        this.reviewerId = reviewerId;
+    public void setClientId(String clientId) {
+        this.clientId = clientId;
     }
 
-    public String getRevieweeId() {
-        return revieweeId;
+    public String getFreelancerId() {
+        return freelancerId;
     }
 
-    public void setRevieweeId(String revieweeId) {
-        this.revieweeId = revieweeId;
+    public void setFreelancerId(String freelancerId) {
+        this.freelancerId = freelancerId;
     }
 
     public int getRating() {

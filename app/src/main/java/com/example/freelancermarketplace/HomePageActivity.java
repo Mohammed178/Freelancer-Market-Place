@@ -16,6 +16,8 @@ import com.example.freelancermarketplace.Classes.Bridge;
 import com.example.freelancermarketplace.Classes.Job;
 import com.example.freelancermarketplace.Classes.JobAdapter;
 import com.example.freelancermarketplace.Classes.JobCRUD;
+import com.example.freelancermarketplace.Classes.Review;
+import com.example.freelancermarketplace.Classes.ReviewCRUD;
 import com.example.freelancermarketplace.Classes.User;
 import com.example.freelancermarketplace.Classes.UserCRUD;
 import com.google.firebase.database.DataSnapshot;
@@ -63,6 +65,22 @@ public class HomePageActivity extends AppCompatActivity {
 
             }
         });
+
+        new ReviewCRUD().getAllReviews(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot sn : snapshot.getChildren()){
+                    Review r = sn.getValue(Review.class);
+                    Bridge.listReview.add(r);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
 
         if ("freelancer".equals(currentUserRole)) {
             jobCRUD.getAllJobs(new ValueEventListener() {
@@ -113,6 +131,8 @@ public class HomePageActivity extends AppCompatActivity {
         MenuItem browseJobsItem = menu.findItem(R.id.menu_browse);
         MenuItem viewProposalItem = menu.findItem(R.id.menu_view_proposals);
         MenuItem viewFreelancerProposalItem = menu.findItem(R.id.menu_view_freelancer_proposals);
+        MenuItem menu_update = menu.findItem(R.id.menu_update);
+
         if ("client".equals(currentUserRole)) {
             // Show Client-specific options
             addJobItem.setVisible(true);
@@ -151,6 +171,9 @@ public class HomePageActivity extends AppCompatActivity {
         }
         else if (id == R.id.menu_view_freelancer_proposals) {
             startActivity(new Intent(this, ViewFreelancerProposalActivity.class).putExtra("userID",currentUserId));
+        }
+        else if (id == R.id.menu_update) {
+            startActivity(new Intent(this, UpdateUserDataActivity.class).putExtra("userID",currentUserId));
         }
 
 

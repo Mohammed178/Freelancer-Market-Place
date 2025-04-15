@@ -20,6 +20,9 @@
 
     <!-- For Everyone -->
     <item
+        android:id="@+id/menu_update"
+        android:title="Profile" />
+    <item
         android:id="@+id/menu_logout"
         android:title="Logout" />
     <item
