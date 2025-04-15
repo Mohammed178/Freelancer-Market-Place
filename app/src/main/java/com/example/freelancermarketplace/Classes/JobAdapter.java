@@ -164,30 +164,51 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.JobViewHolder> {
         });
 
         holder.markAsDoneBtn.setOnClickListener(v -> {
-            job.setStatus("pending");
-            new JobCRUD().updateJob(job.getJobId(), job);
-            Toast.makeText(context, "Marked as Done (Pending Approval)", Toast.LENGTH_SHORT).show();
-            notifyItemChanged(position);
+            new AlertDialog.Builder(context)
+                    .setTitle("Confirm")
+                    .setMessage("Are you sure you want to mark this job as done?\nYou will have to wait for the Client's confirmation!")
+                    .setPositiveButton("Yes", (dialog, which) -> {
+                        job.setStatus("pending");
+                        new JobCRUD().updateJob(job.getJobId(), job);
+                        Toast.makeText(context, "Marked as Done (Pending Approval)", Toast.LENGTH_SHORT).show();
+                        notifyItemChanged(position);
+                    })
+                    .setNegativeButton("No", null)
+                    .show();
 
 
         });
 
         holder.approveBtn.setOnClickListener(v -> {
-            job.setStatus("concluded");
-            new JobCRUD().updateJob(job.getJobId(), job);
-            Toast.makeText(context, "Job Approved", Toast.LENGTH_SHORT).show();
-            notifyItemChanged(position);
-            showReviewDialog(job, proposal.getFreelancerId());
+            new AlertDialog.Builder(context)
+                    .setTitle("Approve Job")
+                    .setMessage("Are you sure you want to approve this job?")
+                    .setPositiveButton("Yes", (dialog, which) -> {
+                        job.setStatus("concluded");
+                        new JobCRUD().updateJob(job.getJobId(), job);
+                        Toast.makeText(context, "Job Approved", Toast.LENGTH_SHORT).show();
+                        notifyItemChanged(position);
+                        showReviewDialog(job, proposal.getFreelancerId());
+                    })
+                    .setNegativeButton("No", null)
+                    .show();
         });
 
 
 
 
         holder.rejectBtn.setOnClickListener(v -> {
-            job.setStatus("in progress");
-            new JobCRUD().updateJob(job.getJobId(), job);
-            Toast.makeText(context, "Job Rejected. Moved to In Progress", Toast.LENGTH_SHORT).show();
-            notifyItemChanged(position);
+            new AlertDialog.Builder(context)
+                    .setTitle("Reject Job Completion")
+                    .setMessage("Are you sure you want to reject this job completion request?")
+                    .setPositiveButton("Yes", (dialog, which) -> {
+                        job.setStatus("in progress");
+                        new JobCRUD().updateJob(job.getJobId(), job);
+                        Toast.makeText(context, "Job Rejected. Moved to In Progress", Toast.LENGTH_SHORT).show();
+                        notifyItemChanged(position);
+                    })
+                    .setNegativeButton("No", null)
+                    .show();
         });
     }
 
