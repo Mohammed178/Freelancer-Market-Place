@@ -4,6 +4,7 @@
     <color name="primary">#00ADB5</color>  <!-- Main brand color -->
     <color name="secondary">#FFFFFF</color> <!-- Secondary text color -->
     <color name="background">#222831</color>
+    <color name="card_background">#0D0D33</color>
     <color name="gray">#706969</color>
     <color name="text_primary">#000000</color> <!-- Dark text for contrast -->
     <color name="light_gray">#F5F5F5</color>

@@ -17,6 +17,7 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
+            android:background="@color/card_background"
             android:orientation="vertical">
 
             <TextView
@@ -24,12 +25,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Job Title"
+                android:textColor="@color/secondary"
                 android:textStyle="bold"
                 android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/tvFreelancerName"
                 android:layout_width="wrap_content"
+                android:textColor="@color/secondary"
                 android:layout_height="wrap_content"
                 android:text="Freelancer Name" />
 
@@ -37,7 +40,8 @@
                 android:id="@+id/tvBidAmount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Budget: $" />
+                android:text="Budget: $"
+                android:textColor="@color/primary"/>
         </LinearLayout>
 
         <!-- Right side: Profile image -->

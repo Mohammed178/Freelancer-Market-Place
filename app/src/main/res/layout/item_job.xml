@@ -3,8 +3,9 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="16dp"
-    android:background="@drawable/card_background"
-    android:layout_marginBottom="8dp">
+    android:background="@color/background"
+    android:layout_marginBottom="12dp"
+    android:elevation="4dp">
 
     <TextView
         android:id="@+id/jobTitle"
@@ -12,23 +13,84 @@
         android:layout_height="wrap_content"
         android:text="Job Title"
         android:textStyle="bold"
-        android:textSize="18sp"
+        android:textSize="20sp"
         android:textColor="@color/primary" />
+
+    <TextView
+        android:id="@+id/clientName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Client: John Doe"
+        android:textColor="#000000"
+        android:layout_marginTop="6dp" />
 
     <TextView
         android:id="@+id/jobDesc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Short job description..."
-        android:textColor="@color/secondary"
+        android:textColor="@color/card_background"
         android:layout_marginTop="4dp" />
 
     <TextView
         android:id="@+id/jobBudget"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="$0.00"
+        android:text="RM 0.00"
         android:textColor="@color/primary"
         android:textStyle="bold"
         android:layout_marginTop="4dp" />
+
+
+    <Button
+        android:id="@+id/messageBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Send Message"
+        android:layout_marginTop="10dp"
+        android:backgroundTint="@color/primary"
+        android:textColor="@android:color/white"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp" />
+
+    <Button
+        android:id="@+id/markAsDoneBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Mark as Done"
+        android:layout_marginTop="6dp"
+        android:backgroundTint="@color/card_background"
+        android:textColor="@android:color/white"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="horizontal"
+        android:layout_marginTop="6dp"
+        android:visibility="visible">
+
+        <Button
+            android:id="@+id/approveBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Approve"
+            android:backgroundTint="#00FFFF"
+            android:textColor="@android:color/white"
+            android:layout_marginEnd="8dp"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/rejectBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Reject"
+            android:backgroundTint="@color/red"
+            android:textColor="@android:color/white"
+            android:visibility="gone" />
+    </LinearLayout>
+
+
 </LinearLayout>
