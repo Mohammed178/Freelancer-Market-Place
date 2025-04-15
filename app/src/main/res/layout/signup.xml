@@ -86,6 +86,7 @@
         android:layout_marginVertical="8dp"
         android:background="@color/background"
         android:hint="Confirm Password"
+        android:textColor="@color/secondary"
         android:textColorHint="@color/secondary"
         app:boxStrokeColor="@color/primary">
 

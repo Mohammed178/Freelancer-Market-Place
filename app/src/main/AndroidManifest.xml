@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
 
     <!-- For Android 10 (API 29) and above -->
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
@@ -16,6 +18,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FreelancerMarketPlace">
+
         <activity
             android:name=".ViewFreelancerProposalActivity"
             android:exported="false" />
@@ -40,11 +43,15 @@
 <!--   Finish Sign Up Page   -->
         <activity android:name=".FinishSignUpActivity"
             android:exported="true"/>
+<!--   Chat Page     -->
         <activity android:name="ChatPageActivity"
             android:exported="true"/>
+<!--   Apply For Job     -->
         <activity android:name=".ApplyForJobActivity"
             android:exported="true"/>
-
+<!--   Home Page   -->
+        <activity android:name=".HomePageActivity"
+            android:exported="true"/>
     </application>
 
 </manifest>

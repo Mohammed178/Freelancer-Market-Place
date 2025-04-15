@@ -74,6 +74,7 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:id="@+id/txtPassword"
+            android:textColor="@color/secondary"
             android:inputType="textPassword" />
 
     </com.google.android.material.textfield.TextInputLayout>

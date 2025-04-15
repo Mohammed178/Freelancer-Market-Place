@@ -10,6 +10,7 @@
         android:layout_height="wrap_content"
         android:background="?android:attr/colorPrimary"
         android:title="Home"
+        android:layout_marginTop="20sp"
         android:titleTextColor="@android:color/white" />
 
     <TextView
