@@ -136,7 +136,7 @@ public class HomePageActivity extends AppCompatActivity {
         if ("client".equals(currentUserRole)) {
             // Show Client-specific options
             addJobItem.setVisible(true);
-            manageJobsItem.setVisible(true);
+            //manageJobsItem.setVisible(true);
             viewProposalItem.setVisible(true);
         }
         if("freelancer".equals(currentUserRole)){
